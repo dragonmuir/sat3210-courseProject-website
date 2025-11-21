@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Database Search</title>
+</head>
+<body>
+  <h1>Database Directory</h1>
+  <!--Search Bar-->
+  <input id="searchBox" type="text" placeholder="Search Database..." onkeyup="searchEmployees()">
+  <!--Drop down-->
+<label for="table">Choose a table:</label>
+<select name="tables" id="pickTable" onchange="searchEmployees()" >
+  <option value="Client">Client</option>
+  <option value="Device">Device</option>
+  <option value="Employee">Employee</option>
+  <option value="Location">Location</option>
+  <option value="Software">Software</option>
+  <option value="Software_Installed">Software_Installed</option>
+  <option value="Vendor">Vendor</option>
+</select> 
+
+<!--Radio button for choosing if the text is an exact match or just contains-->
+<input type="radio" id="radioA" name="Exact/Conatins" value="1" checked onchange="searchEmployees()">
+<label for="Conatins">Conatins</label><br>
+<input type="radio" id="radioB" name="Exact/Conatins" value="2" onchange="searchEmployees()">
+<label for="Exact">Exact</label><br>
+
+<!--limit results-->
+<input id="limitBox" type="text" placeholder="Limit Results" onkeyup="searchEmployees()">
+
+
+  <ul id="results"></ul>
+  
+
+  <script>
+    async function searchEmployees() {
+      const q = document.getElementById('searchBox').value;
+      const t = document.getElementById('pickTable').value;
+      const LB = checkLimit();
+      const RB = checkSelection();
+      const response = await fetch(`http://127.0.0.1:5000/search?q=${q}+${t}+${RB}+${LB}`);
+      const data = await response.json();
+      const list = document.getElementById('results');
+      
+
+      list.innerHTML = '';
+      
+
+      data.forEach(emp => {
+        list.innerHTML += `<li>${JSON.stringify(emp)}</li>`;
+      });  
+    }
+    function checkSelection() {
+      if (document.getElementById('radioA').checked) {
+              return "True";
+      }
+      else if (document.getElementById('radioB').checked) {
+          return "False";
+      }
+    }
+    function checkLimit() {
+      if (document.getElementById('limitBox').value == "") {
+              return "-1";
+      }
+      else {
+          return document.getElementById('limitBox').value;
+      }
+    }
+
+
+  </script>
+</body>
+</html>
