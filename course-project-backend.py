@@ -15,11 +15,11 @@ CORS(app)
 #Configuration
 
 conn = pyodbc.connect (
-    driver= '{SQL Server}',
-    server = '10.255.254.2\\SQLEXPRESS',
+    driver= '{/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.5.so.1.1}',
+    server = '127.0.0.1',
     database = 'IMS',
-    UID = 'camdan',
-    PWD = 'P@ssw0rd',
+    UID = 'sa',
+    PWD = 'P_ssw0rd',
     TrustServerCertificate='yes',
 
 )
