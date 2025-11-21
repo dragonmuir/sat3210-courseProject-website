@@ -3,13 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <title>Database Search</title>
+
+  <!--CSS-->
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 32px;
+      font-weight: 600;
+    }
+
+    /*Search Bar*/
+    #searchBox {
+      width: 300px;
+      padding: 12px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    #searchBox:focus {
+      outline: none;
+      border-color: #4a90e2;
+      box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+    }
+    /*limitBox Bar*/
+    #limitBox {
+      width: 300px;
+      padding: 12px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    #limitBox:focus {
+      outline: none;
+      border-color: #4a90e2;
+      box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+    }
+
+    /*Dropdown Menu*/
+    label {
+      font-weight: 600;
+      margin-right: 5px;
+    }
+
+    select {
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      background: white;
+      margin-bottom: 25px;
+      transition: 0.3s;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #4a90e2;
+      box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+    }
+
+    /*Results*/
+    #results {
+      list-style: none;
+      padding: 0;
+      width: 500px;
+    }
+
+    #results li {
+      background: white;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+  </style>
+
 </head>
 <body>
+
   <h1>Database Directory</h1>
+
   <!--Search Bar-->
-  <input id="searchBox" type="text" placeholder="Search Database..." onkeyup="searchEmployees()">
-  <!--Drop down-->
-<label for="table">Choose a table:</label>
+  <input id="searchBox" type="text" placeholder="Search employees..." onkeyup="searchEmployees()">
+
+  <!--Dropdown Menu-->
+  <label for="table">Choose a table:</label>
 <select name="tables" id="pickTable" onchange="searchEmployees()" >
   <option value="Client">Client</option>
   <option value="Device">Device</option>
@@ -19,19 +116,16 @@
   <option value="Software_Installed">Software_Installed</option>
   <option value="Vendor">Vendor</option>
 </select> 
+  <!--Radio button for choosing if the text is an exact match or just contains-->
+  <input type="radio" id="radioA" name="Exact/Contains" value="1" checked onchange="searchEmployees()">
+  <label for="Contains">Contains</label><br>
+  <input type="radio" id="radioB" name="Exact/Contains" value="2" onchange="searchEmployees()">
+  <label for="Exact">Exact</label><br>
 
-<!--Radio button for choosing if the text is an exact match or just contains-->
-<input type="radio" id="radioA" name="Exact/Conatins" value="1" checked onchange="searchEmployees()">
-<label for="Conatins">Conatins</label><br>
-<input type="radio" id="radioB" name="Exact/Conatins" value="2" onchange="searchEmployees()">
-<label for="Exact">Exact</label><br>
-
-<!--limit results-->
-<input id="limitBox" type="text" placeholder="Limit Results" onkeyup="searchEmployees()">
-
+  <!--limit results-->
+  <input id="limitBox" type="text" placeholder="Limit Results" onkeyup="searchEmployees()">
 
   <ul id="results"></ul>
-  
 
   <script>
     async function searchEmployees() {
@@ -67,9 +161,7 @@
           return document.getElementById('limitBox').value;
       }
     }
-
-
   </script>
+
 </body>
 </html>
-
